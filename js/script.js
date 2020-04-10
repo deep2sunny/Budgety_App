@@ -16,16 +16,16 @@ var UIController = (function(){
     inputValue: '.add__value',
     inputButton: '.add__btn'
   };
-    return {
-      getInput: function(){
-          return {
-            type: document.querySelector(DOMstrings.inputType).value, //will be either inc or exp
-            description: document.querySelector(DOMstrings.inputDescription).value,
-            value: document.querySelector(DOMstrings.inputValue).value
-          };
-      },
 
-      getDOMstrings: function() {
+  return {
+    getInput: function(){
+        return {
+          type: document.querySelector(DOMstrings.inputType).value, //will be either inc or exp
+          description: document.querySelector(DOMstrings.inputDescription).value,
+          value: document.querySelector(DOMstrings.inputValue).value
+        };
+      },
+    getDOMstrings: function(){
         return DOMstrings;
       }
     };
@@ -36,12 +36,31 @@ var UIController = (function(){
 //GOLBAL APP CONTROLLER
 var controllerApp = (function(budgetCtrl, UICtrl){
 
-  var DOM = UICtrl.getDOMstrings();
-  var ctrlAddItem = function(){
+  var setupEventListeners = function() {
+
+    var DOM = UICtrl.getDOMstrings();
+
+    document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
+
+    //gobal event
+    document.addEventListener('keypress', function(event){
+
+      if(event.keyCode === 13 || event.which === 13){
+        ctrlAddItem();
+      }
+
+      //console.log(event);
+    });
+  }
+
+
+
+  var  ctrlAddItem = function(){
 
     //  1. Get the field input data
     var input = UICtrl.getInput();
     console.log(input);
+
     //  2. Add the item to budget controller
     //  3. Add the item to UI
     //  4. Calculate budget
@@ -50,16 +69,15 @@ var controllerApp = (function(budgetCtrl, UICtrl){
 
   }
 
-  document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
-
-  //gobal event
-  document.addEventListener('keypress', function(event){
-
-    if(event.keyCode === 13 || event.which === 13){
-      ctrlAddItem();
+  return {
+    init: function() {
+      console.log("Application has started");
+      setupEventListeners();
     }
+  }
 
-    //console.log(event);
-  });
 
 })(budgetController, UIController);
+
+
+controllerApp.init();
