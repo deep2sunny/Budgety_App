@@ -10,24 +10,47 @@ var budgetController = (function(){
 //UI CONTROLLER
 var UIController = (function(){
 
+  var DOMstrings = {
+    inputType: '.add__type',
+    inputDescription: '.add__description',
+    inputValue: '.add__value',
+    inputButton: '.add__btn'
+  };
+    return {
+      getInput: function(){
+          return {
+            type: document.querySelector(DOMstrings.inputType).value, //will be either inc or exp
+            description: document.querySelector(DOMstrings.inputDescription).value,
+            value: document.querySelector(DOMstrings.inputValue).value
+          };
+      },
+
+      getDOMstrings: function() {
+        return DOMstrings;
+      }
+    };
+
 })();
 
 
 //GOLBAL APP CONTROLLER
 var controllerApp = (function(budgetCtrl, UICtrl){
 
+  var DOM = UICtrl.getDOMstrings();
   var ctrlAddItem = function(){
 
     //  1. Get the field input data
+    var input = UICtrl.getInput();
+    console.log(input);
     //  2. Add the item to budget controller
     //  3. Add the item to UI
     //  4. Calculate budget
     //  5. Display budget on UI
 
-    console.log('It Works');
+
   }
 
-  document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
+  document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
 
   //gobal event
   document.addEventListener('keypress', function(event){
