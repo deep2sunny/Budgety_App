@@ -38,6 +38,7 @@ var budgetController = (function(){
   };
 
   return {
+
     addItem: function(type,desc,val){
       var newItem;
 
@@ -131,9 +132,11 @@ var UIController = (function(){
           value: parseFloat(document.querySelector(DOMstrings.inputValue).value)
         };
       },
+
     getDOMstrings: function(){
         return DOMstrings;
       },
+
     addListItem: function(obj,type){
         var html, newHTML;
         // Create HTML string with placeholder text
@@ -211,7 +214,7 @@ var controllerApp = (function(budgetCtrl, UICtrl){
 
       //console.log(event);
     });
-  }
+  };
 
   var updateBudget = function(){
     // 1. Calculate the budget
@@ -259,7 +262,7 @@ var controllerApp = (function(budgetCtrl, UICtrl){
       });
       setupEventListeners();
     }
-  }
+  };
 
 
 })(budgetController, UIController);
